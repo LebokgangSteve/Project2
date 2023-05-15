@@ -1,0 +1,60 @@
+{
+  "user": [
+    {
+      "id": "lebokgang@digilink.africa",
+      "fullName": "Lebokgang Mokgalaka",
+      "password": "Lebokgang@123",
+      "confirmPassword": "Lebokgang@123",
+      "role": "admin"
+    },
+    {
+      "id": "lebza@gmail.com",
+      "fullName": "Lebza",
+      "password": "Lebza@123",
+      "confirmPassword": "Lebza@123",
+      "role": "admin"
+    },
+    {
+      "id": "bongumusa@gmail.com",
+      "fullName": "bongumusa",
+      "password": "Bongumusa@50",
+      "confirmPassword": "Bongumusa@50",
+      "role": "user"
+    },
+    {
+      "id": "steve@gmail.com",
+      "fullName": "Steve Mokgalaka",
+      "password": "Steve@123",
+      "confirmPassword": "Steve@123",
+      "role": "user"
+    }
+  ],
+  "role": [
+    {
+      "code": "admin",
+      "name": "admin"
+    },
+    {
+      "code": "user",
+      "name": "user"
+    }
+  ],
+  "deletedUsers": [
+    {
+      "id": "mnguni@gmail.com",
+      "fullName": "Mbali Mnguni",
+      "password": "Mbali@123",
+      "confirmPassword": "Mbali@123",
+      "role": "user"
+    }
+  ],
+  "disabledUsers": [
+    {
+      "id": "nomvela@gmail.com",
+      "fullName": "Steve Nomvela",
+      "password": "Nomvela@123",
+      "confirmPassword": "Nomvela@123",
+      "role": "user"
+    }
+  ]
+}

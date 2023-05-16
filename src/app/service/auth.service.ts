@@ -24,6 +24,10 @@ export class AuthService {
     return this.http.get(this.apiurldeleted);
   }
 
+  GetByDeleted(code: any) {
+    return this.http.get(this.apiurldisabled + '/' + code);
+  }
+
   GetByCode(code: any) {
     return this.http.get(this.apiurl + '/' + code);
   }
@@ -32,7 +36,6 @@ export class AuthService {
   }
 
   UpdateUser(code: any, inputdata: any) {
-    console.log('updatte');
     return this.http.put<any>(this.apiurl + '/' + code, inputdata);
   }
 
@@ -42,6 +45,10 @@ export class AuthService {
 
   delete(data: any) {
     return this.http.delete(this.apiurl + '/' + data);
+  }
+
+  deleteDisabled(data: any) {
+    return this.http.delete(this.apiurldisabled + '/' + data);
   }
 
   deletedUsers(inputdata: any) {

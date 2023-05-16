@@ -41,12 +41,13 @@ export class ActivateComponent {
   editdata: any;
   ngOnInit(): void {
     this.service.GetAllDisabled().subscribe((res) => {
+      console.log('load all disabled users: ', res);
       this.unactivelist = res;
     });
     if (this.data.usercode != null && this.data.usercode != '') {
-      this.service.GetByCode(this.data.usercode).subscribe((res) => {
+      this.service.GetByDeleted(this.data.usercode).subscribe((res) => {
         this.editdata = res;
-        console.log(this.editdata);
+        console.log('load disabled users: ', this.editdata);
         this.registerform.setValue({
           id: this.editdata.id,
           fullName: this.editdata.fullName,
@@ -67,8 +68,16 @@ export class ActivateComponent {
 
   activateUser() {
     if (this.registerform.valid) {
-      this.service.delete(this.registerform.value.id).subscribe((res) => {});
-      this.service.GetAll().subscribe((res) => {});
+      this.service
+        .deleteDisabled(this.registerform.value.id)
+        .subscribe((res) => {
+          console.log('res-delete user: ', res);
+        });
+      this.service
+        .activateUsers(this.registerform.value.id)
+        .subscribe((res) => {
+          console.log('res-activate user: ', res);
+        });
 
       alert('User activated successfully');
 

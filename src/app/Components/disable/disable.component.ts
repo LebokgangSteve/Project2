@@ -56,6 +56,7 @@ export class DisableComponent {
   ngOnInit(): void {
     this.service.GetAllDisabled().subscribe((res) => {
       this.disabledlist = res;
+      console.log('load all disabled users: ', this.disabledlist);
     });
     if (this.data.usercode != null && this.data.usercode != '') {
       this.service.GetByCode(this.data.usercode).subscribe((res) => {

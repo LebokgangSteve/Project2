@@ -2,16 +2,18 @@
   "user": [
     {
       "id": "lebokgang@digilink.africa",
-      "fullName": "Lebokgang Mokgalaka",
-      "password": "Lebokgang@123",
-      "confirmPassword": "Lebokgang@123",
-      "role": "admin"
+      "fullName": "Lebo",
+      "password": "Lebza@1234",
+      "confirmPassword": "Lebza@1234",
+      "status": "true",
+      "role": "user"
     },
     {
       "id": "lebza@gmail.com",
       "fullName": "Lebza",
       "password": "Lebza@123",
       "confirmPassword": "Lebza@123",
+      "status": "true",
       "role": "admin"
     },
     {
@@ -19,6 +21,7 @@
       "fullName": "bongumusa",
       "password": "Bongumusa@50",
       "confirmPassword": "Bongumusa@50",
+      "status": "false",
       "role": "user"
     },
     {
@@ -26,9 +29,19 @@
       "fullName": "Steve Mokgalaka",
       "password": "Steve@123",
       "confirmPassword": "Steve@123",
+      "status": "true",
+      "role": "user"
+    },
+    {
+      "id": "nomvela@gmail.com",
+      "fullName": "Steve Nomvela",
+      "password": "Nomvela@123",
+      "confirmPassword": "Nomvela@123",
+      "status": "true",
       "role": "user"
     }
   ],
+  "status": [],
   "role": [
     {
       "code": "admin",
@@ -39,22 +52,5 @@
       "name": "user"
     }
   ],
-  "deletedUsers": [
-    {
-      "id": "mnguni@gmail.com",
-      "fullName": "Mbali Mnguni",
-      "password": "Mbali@123",
-      "confirmPassword": "Mbali@123",
-      "role": "user"
-    }
-  ],
-  "disabledUsers": [
-    {
-      "id": "nomvela@gmail.com",
-      "fullName": "Steve Nomvela",
-      "password": "Nomvela@123",
-      "confirmPassword": "Nomvela@123",
-      "role": "user"
-    }
-  ]
+  "deletedUsers": []
 }

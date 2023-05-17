@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   constructor(private http: HttpClient) {}
   apiurl = 'http://localhost:3000/user';
+  apiurlStatus = 'http://localhost:3000/user/update-status';
   apiurldeleted = 'http://localhost:3000/deletedUsers';
   apiurldisabled = 'http://localhost:3000/disabledUsers';
 
@@ -15,6 +16,9 @@ export class AuthService {
   }
   GetAllRole() {
     return this.http.get('http://localhost:3000/role');
+  }
+  GetAllStatus() {
+    return this.http.get('http://localhost:3000/status');
   }
   GetAllDisabled() {
     return this.http.get(this.apiurldisabled);
@@ -59,14 +63,18 @@ export class AuthService {
     return this.http.post(this.apiurldisabled, inputdata);
   }
 
-  activateUsers(inputdata: any) {
-    return this.http.post(this.apiurl, inputdata);
-  }
+  // activateUsers(inputdata: any) {
+  //   return this.http.post(this.apiurl, inputdata);
+  // }
   getUserRole() {
     if (sessionStorage.getItem('role') != null) {
       return false;
     } else {
       return true;
     }
+  }
+
+  updateStatus(code: any, status: any) {
+    return this.http.put(this.apiurl + '/' + code, status);
   }
 }

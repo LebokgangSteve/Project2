@@ -7,11 +7,11 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-updatepopup',
-  templateUrl: './updatepopup.component.html',
-  styleUrls: ['./updatepopup.component.css'],
+  selector: 'app-statuspopup',
+  templateUrl: './statuspopup.component.html',
+  styleUrls: ['./statuspopup.component.css'],
 })
-export class UpdatepopupComponent implements OnInit {
+export class StatuspopupComponent {
   constructor(
     private builder: FormBuilder,
     private service: AuthService,
@@ -23,10 +23,11 @@ export class UpdatepopupComponent implements OnInit {
     this.service.GetAllRole().subscribe((res) => {
       this.rolelist = res;
     });
+
     if (this.data.usercode != null && this.data.usercode != '') {
       this.service.GetByCode(this.data.usercode).subscribe((res) => {
         this.editdata = res;
-        this.registerform.setValue({
+        this.statusform.setValue({
           id: this.editdata.id,
           fullName: this.editdata.fullName,
           password: this.editdata.password,
@@ -39,23 +40,29 @@ export class UpdatepopupComponent implements OnInit {
   }
 
   rolelist: any;
-  registerform = this.builder.group({
+  statusform = this.builder.group({
     id: this.builder.control(''),
-    fullName: this.builder.control('', Validators.required),
+    fullName: this.builder.control(''),
     password: this.builder.control(''),
     confirmPassword: this.builder.control(''),
-    status: this.builder.control(''),
-    role: this.builder.control('', Validators.required),
+    status: this.builder.control('', Validators.required),
+    role: this.builder.control(''),
   });
-  updateuser() {
-    if (this.registerform.valid) {
+
+  onUpdateStatus() {
+    if (this.statusform.valid) {
       this.service
-        .UpdateUser(this.registerform.value.id, this.registerform.value)
+        .updateStatus(this.statusform.value.id, this.statusform.value)
         .subscribe((res) => {
+          console.log('status-updated: ', res);
           alert('Updated successfully');
         });
+      // this.service.GetByCode(userId).subscribe((res: any) => {
+      //   console.log('rrr: ', res.status)
+      //   this.user = res;
+      // });
     } else {
-      alert('Please select Role.');
+      alert('Please select Status.');
     }
   }
 }

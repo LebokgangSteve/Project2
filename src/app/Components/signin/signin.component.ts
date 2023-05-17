@@ -36,11 +36,15 @@ export class SigninComponent implements OnInit {
         (res) => {
           this.userdata = res;
           if (this.userdata.password === this.loginform.value.password) {
-            sessionStorage.setItem('username', this.userdata.id);
-            sessionStorage.setItem('userrole', this.userdata.role);
-            sessionStorage.setItem('fullName', this.userdata.fullName);
+            if (this.userdata.status === 'true') {
+              sessionStorage.setItem('username', this.userdata.id);
+              sessionStorage.setItem('userrole', this.userdata.role);
+              sessionStorage.setItem('fullName', this.userdata.fullName);
 
-            this.router.navigate(['home']);
+              this.router.navigate(['home']);
+            } else {
+              window.alert('User is not active, please contact administrator');
+            }
           } else {
             window.alert('incorrect password');
           }

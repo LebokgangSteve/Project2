@@ -11,8 +11,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DeletepopupComponent } from 'src/app/deletepopup/deletepopup.component';
-import { ActivateComponent } from '../activate/activate.component';
-import { DisableComponent } from '../disable/disable.component';
+import { StatuspopupComponent } from 'src/app/statuspopup/statuspopup.component';
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -27,21 +27,21 @@ export class UserComponent {
     private builder: FormBuilder
   ) {
     this.loadUser();
-    this.loadDisable();
   }
   userlist: any;
   dataSource: any;
+  user: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   loadUser() {
-    this.service.GetAll().subscribe((res) => {
+    this.service.GetAll().subscribe((res: any) => {
       this.userlist = res;
       this.dataSource = new MatTableDataSource(this.userlist);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
   }
-  displayedColumns: string[] = ['name', 'email', 'role', 'action'];
+  displayedColumns: string[] = ['name', 'email', 'role', 'status', 'action'];
   updateuser(code: any) {
     const popup = this.dialog.open(UpdatepopupComponent, {
       enterAnimationDuration: '1000ms',
@@ -82,6 +82,7 @@ export class UserComponent {
       ])
     ),
     role: this.builder.control('user'),
+    status: this.builder.control(false),
   });
 
   opendialog() {}
@@ -101,22 +102,8 @@ export class UserComponent {
     });
   }
 
-  //Disabled user -------------------------------------------------------------------------------------------------------------------------------------------
-  disabledlist: any;
-  disabledSource: any;
-
-  loadDisable() {
-    this.service.GetAllDisabled().subscribe((res) => {
-      this.disabledlist = res;
-      this.disabledSource = new MatTableDataSource(this.disabledlist);
-      this.disabledSource.paginator = this.paginator;
-      this.disabledSource.sort = this.sort;
-    });
-  }
-  displayedDisabled: string[] = ['name', 'email', 'role', 'action'];
-
-  disableUser(code: any) {
-    const disable = this.dialog.open(DisableComponent, {
+  statusUser(code: any) {
+    const statuspopup = this.dialog.open(StatuspopupComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '500ms',
       width: '50%',
@@ -125,48 +112,8 @@ export class UserComponent {
       },
     });
 
-    disable.afterClosed().subscribe((res) => {
+    statuspopup.afterClosed().subscribe((res) => {
       this.loadUser();
     });
   }
-
-  //Activate user----------------------------------------------------------------------------------------------------------------------------------------------
-  unactiveSource: any;
-  unactivelist: any;
-  loadunActive() {
-    this.service.GetAllDisabled().subscribe((res) => {
-      this.disabledlist = res;
-      this.unactiveSource = new MatTableDataSource(this.unactivelist);
-      this.unactiveSource.paginator = this.paginator;
-      this.unactiveSource.sort = this.sort;
-    });
-  }
-  displayedUnactive: string[] = ['name', 'email', 'role', 'action'];
-  activateUser(code: any) {
-    const activate = this.dialog.open(ActivateComponent, {
-      enterAnimationDuration: '1000ms',
-      exitAnimationDuration: '500ms',
-      width: '50%',
-      data: {
-        usercode: code,
-      },
-    });
-
-    activate.afterClosed().subscribe((res) => {
-      this.loadUser();
-    });
-  }
-
-  // deleted list-----------------------------------------------------------------------------------------------------------------------------------------------------
-  deletedSource: any;
-  deletedlist: any;
-  loadDeleted() {
-    this.service.GetAllDeleted().subscribe((res) => {
-      this.deletedlist = res;
-      this.deletedSource = new MatTableDataSource(this.deletedlist);
-      this.deletedSource.paginator = this.paginator;
-      this.deletedSource.sort = this.sort;
-    });
-  }
-  displayedDeleted: string[] = ['name', 'email', 'role', 'action'];
 }

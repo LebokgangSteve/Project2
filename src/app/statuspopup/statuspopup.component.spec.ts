@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActivateComponent } from './activate.component';
+import { StatuspopupComponent } from './statuspopup.component';
 
-describe('ActivateComponent', () => {
-  let component: ActivateComponent;
-  let fixture: ComponentFixture<ActivateComponent>;
+describe('StatuspopupComponent', () => {
+  let component: StatuspopupComponent;
+  let fixture: ComponentFixture<StatuspopupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActivateComponent ]
+      declarations: [ StatuspopupComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ActivateComponent);
+    fixture = TestBed.createComponent(StatuspopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

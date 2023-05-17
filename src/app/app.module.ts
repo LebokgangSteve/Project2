@@ -25,8 +25,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { UpdatepopupComponent } from './Components/updatepopup/updatepopup.component';
 import { DeletepopupComponent } from './deletepopup/deletepopup.component';
-import { DisableComponent } from './Components/disable/disable.component';
-import { ActivateComponent } from './Components/activate/activate.component';
+import { StatuspopupComponent } from './statuspopup/statuspopup.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,7 @@ import { ActivateComponent } from './Components/activate/activate.component';
     UserDetailsComponent,
     UpdatepopupComponent,
     DeletepopupComponent,
-    DisableComponent,
-    ActivateComponent,
+    StatuspopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +59,8 @@ import { ActivateComponent } from './Components/activate/activate.component';
     MatSortModule,
     MatDialogModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

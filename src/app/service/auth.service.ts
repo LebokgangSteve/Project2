@@ -63,11 +63,15 @@ export class AuthService {
     return this.http.post(this.apiurldisabled, inputdata);
   }
 
-  // activateUsers(inputdata: any) {
-  //   return this.http.post(this.apiurl, inputdata);
-  // }
   getUserRole() {
     if (sessionStorage.getItem('role') != null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  getUsers() {
+    if (sessionStorage.getItem('role') === 'admin') {
       return false;
     } else {
       return true;

@@ -2,11 +2,11 @@
   "user": [
     {
       "id": "lebokgang@digilink.africa",
-      "fullName": "Lebo",
+      "fullName": "Lebokgang",
       "password": "Lebza@1234",
       "confirmPassword": "Lebza@1234",
       "status": "true",
-      "role": "user"
+      "role": "admin"
     },
     {
       "id": "lebza@gmail.com",
@@ -37,6 +37,14 @@
       "fullName": "Steve Nomvela",
       "password": "Nomvela@123",
       "confirmPassword": "Nomvela@123",
+      "status": "true",
+      "role": "user"
+    },
+    {
+      "id": "ezron@gmail.com",
+      "fullName": "Ezron",
+      "password": "EZROm@gmail1",
+      "confirmPassword": "EZROm@gmail1",
       "status": "true",
       "role": "user"
     }

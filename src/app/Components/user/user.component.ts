@@ -36,6 +36,7 @@ export class UserComponent {
   loadUser() {
     this.service.GetAll().subscribe((res: any) => {
       this.userlist = res;
+      this.checkStatus();
       this.dataSource = new MatTableDataSource(this.userlist);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -57,7 +58,7 @@ export class UserComponent {
     });
   }
 
-  registerform = this.builder.group({
+  userform = this.builder.group({
     id: this.builder.control(
       '',
       Validators.compose([Validators.email, Validators.required])
@@ -82,7 +83,7 @@ export class UserComponent {
       ])
     ),
     role: this.builder.control('user'),
-    status: this.builder.control(false),
+    status: this.builder.control('false'),
   });
 
   opendialog() {}
@@ -115,5 +116,20 @@ export class UserComponent {
     statuspopup.afterClosed().subscribe((res) => {
       this.loadUser();
     });
+  }
+  checkStatus() {
+    let arr: any[] = [];
+    for (let user of this.userlist) {
+      if (user.status === 'true') {
+        user.status = 'Active';
+
+        arr.push(user);
+      } else {
+        user.status = 'In-Active';
+
+        arr.push(user);
+      }
+    }
+    this.userlist = arr;
   }
 }

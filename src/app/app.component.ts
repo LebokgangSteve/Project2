@@ -12,7 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements DoCheck {
-  title = 'Project2';
+  
   isRequired: any;
   constructor(
     private router: Router,
@@ -55,22 +55,23 @@ export class AppComponent implements DoCheck {
   confirmPasswordX: any;
   roleX: any;
   usersX: any;
+  status: any;
 
   ngOnInit(): void {
     this.service
       .GetByCode(sessionStorage.getItem('username'))
       .subscribe((res) => {
+        
         this.usersX = res;
       });
   }
 
   update() {
-    console.log('Update');
-    console.log(sessionStorage.getItem('username'));
     this.emailX = this.usersX.id;
     this.nameX = this.usersX.fullName;
     this.passwordX = this.usersX.password;
     this.confirmPasswordX = this.usersX.confirmPassword;
+    this.status = this.usersX.status;
     this.roleX = this.usersX.role;
   }
 
@@ -86,9 +87,9 @@ export class AppComponent implements DoCheck {
     this.confirmPasswordX = value;
   }
 
-  registerform: any;
+  userDetailsform: any;
   updateuser() {
-    this.registerform = this.builder.group({
+    this.userDetailsform = this.builder.group({
       id: this.builder.control(this.emailX),
       fullName: this.builder.control(this.nameX, Validators.required),
       password: this.builder.control(
@@ -109,10 +110,11 @@ export class AppComponent implements DoCheck {
           ),
         ])
       ),
+      status: this.builder.control(this.status),
       role: this.builder.control(this.roleX, Validators.required),
     });
 
-    this.service.UpdateUser(this.emailX, this.registerform.value).subscribe(
+    this.service.UpdateUser(this.emailX, this.userDetailsform.value).subscribe(
       (res) => {
         alert('Updated successfully');
         location.reload();

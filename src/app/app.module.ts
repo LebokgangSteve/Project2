@@ -28,6 +28,8 @@ import { DeletepopupComponent } from './deletepopup/deletepopup.component';
 import { StatuspopupComponent } from './statuspopup/statuspopup.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     UpdatepopupComponent,
     DeletepopupComponent,
     StatuspopupComponent,
+    NotfoundComponent,
+    ResetpasswordComponent,
   ],
   imports: [
     BrowserModule,

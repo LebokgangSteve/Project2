@@ -65,7 +65,7 @@ export class SignupComponent {
         }
       );
     } else {
-      //this.toastr.success('Please enter valid data');
+      //this.toastr.success('Please enter valid data'); toastr not working
       alert('Please enter valid data'); //need to fix this one
     }
   }
@@ -75,7 +75,7 @@ export class SignupComponent {
     this.fullName = value;
   }
   onEmail(value: string) {
-    this.email = value;
+    this.email = value.toLowerCase();
   }
   onPassword(value: string) {
     this.password = value;

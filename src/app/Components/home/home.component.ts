@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
     this.service.GetAll().subscribe((res: any) => {
       this.userlist = res;
       this.checkRole();
+      this.checkStatus();
       this.dataSource = new MatTableDataSource(this.userlist);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -88,6 +89,22 @@ export class HomeComponent implements OnInit {
     let arr: any[] = [];
     for (let user of this.userlist) {
       if (user.role === 'user') {
+        arr.push(user);
+      }
+    }
+    this.userlist = arr;
+  }
+
+  checkStatus() {
+    let arr: any[] = [];
+    for (let user of this.userlist) {
+      if (user.status === 'true') {
+        user.status = 'Active';
+
+        arr.push(user);
+      } else {
+        user.status = 'Not-Active';
+
         arr.push(user);
       }
     }

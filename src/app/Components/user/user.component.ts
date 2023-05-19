@@ -125,7 +125,7 @@ export class UserComponent {
 
         arr.push(user);
       } else {
-        user.status = 'In-Active';
+        user.status = 'Not-Active';
 
         arr.push(user);
       }

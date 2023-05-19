@@ -12,7 +12,6 @@ import { MatDialogModule } from '@angular/material/dialog';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements DoCheck {
-  
   isRequired: any;
   constructor(
     private router: Router,
@@ -37,7 +36,11 @@ export class AppComponent implements DoCheck {
   ngDoCheck(): void {
     let currentUrl = this.router.url;
 
-    if (currentUrl == '/signin' || currentUrl == '/signup') {
+    if (
+      currentUrl == '/signin' ||
+      currentUrl == '/signup' ||
+      currentUrl == '/resetpassword'
+    ) {
       this.isRequired = false;
     } else {
       this.isRequired = true;
@@ -49,19 +52,18 @@ export class AppComponent implements DoCheck {
   //  }
 
   //Displaying user details
-  emailX: any;
-  nameX: any;
-  passwordX: any;
-  confirmPasswordX: any;
-  roleX: any;
+  emailX: string = '';
+  nameX: string = '';
+  passwordX: string = '';
+  confirmPasswordX: string = '';
+  roleX: string = '';
   usersX: any;
-  status: any;
+  status: string = '';
 
   ngOnInit(): void {
     this.service
-      .GetByCode(sessionStorage.getItem('username'))
+      .GetByCode(sessionStorage.getItem('username') || '')
       .subscribe((res) => {
-        
         this.usersX = res;
       });
   }

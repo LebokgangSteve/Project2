@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UserData } from 'src/app/resetpassword/resetpassword.component';
 
 @Component({
   selector: 'app-updatepopup',
@@ -38,6 +39,33 @@ export class UpdatepopupComponent implements OnInit {
     }
   }
 
+  mapUser(
+    userData:
+      | UserData
+      | undefined
+      | Partial<{
+          id: string | null;
+          fullName: string | null;
+          password: string | null;
+          confirmPassword: string | null;
+          status: string | null;
+          role: string | null;
+        }>
+  ) {
+    if (userData) {
+      return {
+        id: userData.id || '',
+        fullName: userData.fullName,
+        password: userData.password,
+        confirmPassword: userData.confirmPassword,
+        status: userData.status,
+        role: userData.role,
+      };
+    } else {
+      return undefined;
+    }
+  }
+
   rolelist: any;
   registerform = this.builder.group({
     id: this.builder.control(''),
@@ -48,9 +76,18 @@ export class UpdatepopupComponent implements OnInit {
     role: this.builder.control('', Validators.required),
   });
   updateuser() {
+    let userData: UserData = {
+      id: this.registerform.value.id || '',
+      fullName: this.registerform.value.fullName || '',
+      password: this.registerform.value.password || '',
+      confirmPassword: this.registerform.value.confirmPassword || '',
+      status: Boolean(this.registerform.value.status) || false,
+      role: this.registerform.value.role || '',
+    };
     if (this.registerform.valid) {
       this.service
-        .UpdateUser(this.registerform.value.id, this.registerform.value)
+
+        .UpdateUser(this.registerform.value.id, userData)
         .subscribe((res) => {
           alert('Updated successfully');
         });

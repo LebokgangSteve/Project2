@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UserData } from '../resetpassword/resetpassword.component';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -32,15 +34,15 @@ export class AuthService {
     return this.http.get(this.apiurldisabled + '/' + code);
   }
 
-  GetByCode(code: any) {
-    return this.http.get(this.apiurl + '/' + code);
+  GetByCode(code: string | undefined | null): Observable<UserData> {
+    return this.http.get<UserData>(this.apiurl + '/' + code);
   }
   ProceedRegistration(inputdata: any) {
     return this.http.post(this.apiurl, inputdata);
   }
 
-  UpdateUser(code: any, inputdata: any) {
-    return this.http.put<any>(this.apiurl + '/' + code, inputdata);
+  UpdateUser(code: string | null | undefined, inputdata: UserData | undefined) {
+    return this.http.put<UserData>(this.apiurl + '/' + code, inputdata);
   }
 
   isLoggedIn() {
@@ -51,7 +53,7 @@ export class AuthService {
     return this.http.delete(this.apiurl + '/' + data);
   }
 
-  deleteDisabled(data: any) {
+  deleteDisabled(data: UserData) {
     return this.http.delete(this.apiurldisabled + '/' + data);
   }
 

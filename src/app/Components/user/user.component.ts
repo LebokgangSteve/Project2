@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatTable } from '@angular/material/table';
@@ -8,7 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdatepopupComponent } from '../updatepopup/updatepopup.component';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DeletepopupComponent } from 'src/app/deletepopup/deletepopup.component';
 import { StatuspopupComponent } from 'src/app/statuspopup/statuspopup.component';
@@ -18,23 +18,29 @@ import { StatuspopupComponent } from 'src/app/statuspopup/statuspopup.component'
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private service: AuthService,
     private dialog: MatDialog,
     private router: Router,
+    private route: ActivatedRoute,
     private builder: FormBuilder
-  ) {
-    this.loadUser();
+  ) {}
+  ngOnInit(): void {
+    this.route.params.subscribe((value) => {
+      console.log(value);
+      this.loadUser(value['role']);
+    });
   }
-  userlist: any;
-  dataSource: any;
+  userlist: any; //TODO remove any
+  dataSource: any; //TODO remove any
   user: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  loadUser() {
-    this.service.GetAll().subscribe((res: any) => {
+
+  loadUser(role: string = '') {
+    this.service.GetAll(role !== '' ? role : '').subscribe((res: any) => {
       this.userlist = res;
       this.checkStatus();
       this.dataSource = new MatTableDataSource(this.userlist);
@@ -42,8 +48,12 @@ export class UserComponent {
       this.dataSource.sort = this.sort;
     });
   }
+
   displayedColumns: string[] = ['name', 'email', 'role', 'status', 'action'];
-  updateuser(code: any) {
+
+  updateuser(
+    code: any //TODO remove any
+  ) {
     const popup = this.dialog.open(UpdatepopupComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '500ms',
@@ -88,7 +98,9 @@ export class UserComponent {
 
   opendialog() {}
 
-  deleteUser(code: any) {
+  deleteUser(
+    code: any //TODO remove any
+  ) {
     const deletepopup = this.dialog.open(DeletepopupComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '500ms',
@@ -103,7 +115,9 @@ export class UserComponent {
     });
   }
 
-  statusUser(code: any) {
+  statusUser(
+    code: any //TODO remove any
+  ) {
     const statuspopup = this.dialog.open(StatuspopupComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '500ms',
@@ -118,7 +132,7 @@ export class UserComponent {
     });
   }
   checkStatus() {
-    let arr: any[] = [];
+    let arr: any[] = []; //TODO remove any
     for (let user of this.userlist) {
       if (user.status === 'true') {
         user.status = 'Active';

@@ -57,28 +57,26 @@ export class ResetpasswordComponent {
   proceedReset() {
     if (this.resetform.valid) {
       const email = this.resetform.value.email || '';
-      this.service.GetByCode(email).subscribe(
-        (res) => {
-          this.userdata = res;
-          if (
-            this.userdata.id === this.resetform.value.email &&
-            this.userdata.fullName === this.resetform.value.fullName
-          ) {
-            this.userdata.password = this.resetform.value.password || '';
-            this.userdata.confirmPassword =
-              this.resetform.value.confirmPassword || '';
-            this.service.UpdateUser(this.userdata.id, this.userdata);
-            alert('Password resetted successfully');
+      this.service.GetByCode(email).subscribe((res) => {
+        this.userdata = res;
+        if (
+          this.userdata.id === this.resetform.value.email &&
+          this.userdata.fullName === this.resetform.value.fullName
+        ) {
+          this.userdata.password = this.resetform.value.password || '';
+          this.userdata.confirmPassword =
+            this.resetform.value.confirmPassword || '';
+          this.service
+            .UpdateUser(this.userdata.id, this.userdata)
+            .subscribe((res) => {});
+          console.log(this.userdata.password);
+          alert('Password resetted successfully');
 
-            this.router.navigate(['./signin']);
-          }
-        },
-        (error: Response) => {
-          if (error.status === 404) {
-            window.alert('Username not found');
-          }
+          this.router.navigate(['./signin']);
+        } else {
+          window.alert('Invalid combination of username and password');
         }
-      );
+      });
     } else {
       window.alert('Enter valid data');
     }

@@ -10,9 +10,9 @@
     },
     {
       "id": "lebza@gmail.com",
-      "fullName": "Lebzam",
-      "password": "Lebza@123",
-      "confirmPassword": "Lebza@123",
+      "fullName": "Lebza",
+      "password": "Lebza@1234",
+      "confirmPassword": "Lebza@1234",
       "status": "true",
       "role": "admin"
     },
@@ -22,14 +22,6 @@
       "password": "Bongumusa@50",
       "confirmPassword": "Bongumusa@50",
       "status": "false",
-      "role": "user"
-    },
-    {
-      "id": "steve@gmail.com",
-      "fullName": "Steve Mokgalaka",
-      "password": "Steve@123",
-      "confirmPassword": "Steve@123",
-      "status": "true",
       "role": "user"
     },
     {
@@ -60,5 +52,13 @@
       "name": "user"
     }
   ],
-  "deletedUsers": []
+  "deletedUsers": [
+    {
+      "id": "steve@gmail.com",
+      "fullName": "Steve Mokgalaka",
+      "password": "Steve@123",
+      "confirmPassword": "Steve@123",
+      "role": "user"
+    }
+  ]
 }

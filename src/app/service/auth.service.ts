@@ -13,9 +13,14 @@ export class AuthService {
   apiurldeleted = 'http://localhost:3000/deletedUsers';
   apiurldisabled = 'http://localhost:3000/disabledUsers';
 
-  GetAll() {
-    return this.http.get(this.apiurl);
+  GetAll(role: string = '') {
+    if (role == '') {
+      return this.http.get(this.apiurl);
+    } else {
+      return this.http.get(`${this.apiurl}?role=${role}`);
+    }
   }
+
   GetAllRole() {
     return this.http.get('http://localhost:3000/role');
   }
@@ -53,10 +58,6 @@ export class AuthService {
     return this.http.delete(this.apiurl + '/' + data);
   }
 
-  deleteDisabled(data: UserData) {
-    return this.http.delete(this.apiurldisabled + '/' + data);
-  }
-
   deletedUsers(inputdata: any) {
     return this.http.post(this.apiurldeleted, inputdata);
   }
@@ -79,6 +80,11 @@ export class AuthService {
       return true;
     }
   }
+
+  //   getAdmin(){
+  // if(this.GetAll.)
+  //     return this.http.get(this.apiurl)
+  //   }
 
   updateStatus(code: any, status: any) {
     return this.http.put(this.apiurl + '/' + code, status);

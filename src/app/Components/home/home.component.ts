@@ -32,10 +32,35 @@ export class HomeComponent implements OnInit {
   userlist: any;
   dataSource: any;
   user: any;
+  totalActive: number = 0;
+  totalInActive: number = 0;
+  totalUsers: number = 0;
+  totalAdmin: number = 0;
+  total: number = 0;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   users() {
     this.service.GetAll().subscribe((res: any) => {
+      //counting total
+      this.total = res.length;
+
+      //counting total active users
+      this.totalActive = res.filter((el: any) => el.status === 'true').length;
+
+      //counting total not active users
+      this.totalInActive = res.filter(
+        (el: any) => el.status === 'false'
+      ).length;
+
+      //counting total admin
+      this.totalAdmin = res.filter((el: any) => el.role === 'admin').length;
+
+      //counting users
+      this.totalUsers = res.filter((el: any) => el.role === 'user').length;
+
+      // -------------------------------------------------------------------------------------
+
       this.userlist = res;
       this.checkRole();
       this.checkStatus();
@@ -86,7 +111,7 @@ export class HomeComponent implements OnInit {
     }
   }
   checkRole() {
-    let arr: any[] = [];
+    let arr: string[] = [];
     for (let user of this.userlist) {
       if (user.role === 'user') {
         arr.push(user);
@@ -95,8 +120,16 @@ export class HomeComponent implements OnInit {
     this.userlist = arr;
   }
 
+  roleAdmin() {
+    if (sessionStorage.getItem('userrole') === 'admin') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   checkStatus() {
-    let arr: any[] = [];
+    let arr: string[] = [];
     for (let user of this.userlist) {
       if (user.status === 'true') {
         user.status = 'Active';
@@ -109,5 +142,17 @@ export class HomeComponent implements OnInit {
       }
     }
     this.userlist = arr;
+  }
+
+  getTotUser(role: string = '') {
+    if (!role || role.length == 0) {
+      this.router.navigate(['./user']);
+    } else {
+      this.router.navigate([`./user/${role}`]);
+    }
+  }
+
+  getAllDeleted() {
+    this.router.navigate(['/deletedusers']);
   }
 }

@@ -30,6 +30,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { DeletedusersComponent } from './deletedusers/deletedusers.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
     StatuspopupComponent,
     NotfoundComponent,
     ResetpasswordComponent,
+    DeletedusersComponent,
   ],
   imports: [
     BrowserModule,

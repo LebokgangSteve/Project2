@@ -9,6 +9,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { UserDetailsComponent } from './Components/user-details/user-details.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { DeletedusersComponent } from './deletedusers/deletedusers.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
@@ -16,9 +17,15 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'user/:role', component: UserComponent, canActivate: [AuthGuard] },
   {
     path: 'user-details',
     component: UserDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'deletedusers',
+    component: DeletedusersComponent,
     canActivate: [AuthGuard],
   },
   { path: 'resetpassword', component: ResetpasswordComponent },

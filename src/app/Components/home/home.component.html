@@ -1,6 +1,6 @@
 <!-- user listing -->
 
-<mat-card>
+<mat-card *ngIf="roleAdmin()">
   <mat-card-header>
     <h2>Users</h2>
   </mat-card-header>
@@ -41,3 +41,96 @@
     </div>
   </mat-card-content>
 </mat-card>
+
+<!-- ----------------------------Cards---------------------------- -->
+<div class="container mt-5" style="margin-top: 120px !important">
+  <div class="row text-center" *ngIf="!roleAdmin()">
+    <div
+      (click)="getTotUser()"
+      class="col-xl-4 col-lg-4 col-sm-12 col-md-6 card text-white bg-dark mb-3 me-3"
+      style="width: 25rem"
+    >
+      <div class="card-body text-center">
+        <h5 class="card-title">TOTAL REGISTERED PEOPLE</h5>
+        <div>
+          {{ total }}
+        </div>
+        <!-- <a href="#" class="card-link">Total</a> -->
+      </div>
+    </div>
+
+    <div
+      (click)="getTotUser('admin')"
+      class="col-xl-4 col-lg-4 col-sm-12 col-md-6 card text-white bg-dark mb-3 me-3"
+      style="width: 25rem"
+    >
+      <div class="card-body text-center">
+        <h5 class="card-title">ADMINS</h5>
+        <div>
+          {{ totalAdmin }}
+        </div>
+        <!-- <a href="#" class="card-link">List of Admins</a> -->
+      </div>
+    </div>
+
+    <div
+      (click)="getTotUser('user')"
+      class="col-xl-4 col-lg-4 col-sm-12 col-md-6 card text-white bg-dark mb-3 me-3"
+      style="width: 25rem"
+    >
+      <div class="card-body text-center">
+        <h5 class="card-title">USERS</h5>
+        <div>
+          {{ totalUsers }}
+        </div>
+
+        <!-- <a href="#" class="card-link">List of Users</a> -->
+      </div>
+    </div>
+
+    <div
+      (click)="getTotUser('user&status=true')"
+      class="col-xl-4 col-lg-4 col-sm-12 col-md-6 card text-white bg-dark mb-3 me-3"
+      style="width: 25rem"
+    >
+      <div class="card-body text-center">
+        <h5 class="card-title">ACTIVE USERS</h5>
+        <div>
+          {{ totalActive }}
+        </div>
+        <!-- <a href="./users" class="card-link">List of active users</a> -->
+      </div>
+    </div>
+
+    <div
+      (click)="getTotUser('user&status=false')"
+      class="col-xl-4 col-lg-4 col-sm-12 col-md-6 card text-white bg-dark mb-3 me-3"
+      style="width: 25rem"
+    >
+      <div class="card-body text-center">
+        <h5 class="card-title">NON-ACTIVE USERS</h5>
+        <div>
+          {{ totalInActive }}
+        </div>
+        <!-- <a href="#" class="card-link">List of inactive users</a> -->
+      </div>
+    </div>
+
+    <div
+      (click)="getAllDeleted()"
+      class="col-xl-4 col-lg-4 col-sm-12 col-md-6 card text-white bg-dark mb-3 me-3"
+      style="width: 25rem"
+    >
+      <div class="card-body text-center">
+        <h5 class="card-title">DELETED USERS</h5>
+        <div>
+          {{ totalInActive }}
+        </div>
+        <!-- <a href="#" class="card-link">List of deleted users </a> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mb-5" style="height: 140px !important"></div>
+
+<!-- ------------------------------Deleted users-------------------- -->

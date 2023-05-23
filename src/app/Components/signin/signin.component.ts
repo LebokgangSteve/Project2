@@ -11,6 +11,7 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./signin.component.css'],
 })
 export class SigninComponent implements OnInit {
+  showPassword: boolean = false;
   userdata: any;
   constructor(
     private builder: FormBuilder,
@@ -32,7 +33,7 @@ export class SigninComponent implements OnInit {
 
   proceedlogin() {
     if (this.loginform.valid) {
-      this.service.GetByCode(this.loginform.value.email ).subscribe(
+      this.service.GetByCode(this.loginform.value.email).subscribe(
         (res) => {
           this.userdata = res;
           if (this.userdata.password === this.loginform.value.password) {
@@ -69,9 +70,7 @@ export class SigninComponent implements OnInit {
     }
   }
 
-  
-
-
-
-  
+  visibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 }

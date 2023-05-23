@@ -5,32 +5,41 @@
         <div class="card shadow-2-strong" style="border-radius: 1rem">
           <div class="card-body p-5 text-center">
             <h3 class="mb-5">Sign in</h3>
-            <form
-              class="form1Example3"
-              [formGroup]="loginform"
-              (ngSubmit)="proceedlogin()"
-            >
+            <form class="form1Example3" [formGroup]="loginform">
               <div class="form-outline mb-4">
                 <label class="form-label">Email</label>
                 <input
                   type="email"
-                  class="form-control form-control-lg border"
+                  class="form-control form-control border"
                   input
                   formControlName="email"
                 />
               </div>
-
-              <div class="form-outline mb-4">
-                <label class="form-label">Password</label>
+              <mat-label class="form-label">Password</mat-label>
+              <div class="input-group mb-4">
                 <input
-                  type="password"
-                  class="form-control form-control-lg border"
+                  [type]="showPassword ? 'text' : 'password'"
+                  class="form-control form-control border"
                   input
                   formControlName="password"
                 />
+                <button class="btn btn-outline-secondary">
+                  <mat-icon
+                    class="input-group"
+                    atSuffix
+                    (click)="visibility()"
+                    >{{
+                      showPassword ? "visibility" : "visibility_off"
+                    }}</mat-icon
+                  >
+                </button>
               </div>
 
-              <button class="btn btn-primary btn-lg btn-block" type="submit">
+              <button
+                (click)="proceedlogin()"
+                class="btn btn-primary btn-lg btn-block"
+                type="submit"
+              >
                 Login
               </button>
               <p>

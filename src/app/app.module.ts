@@ -31,6 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { DeletedusersComponent } from './deletedusers/deletedusers.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { DeletedusersComponent } from './deletedusers/deletedusers.component';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

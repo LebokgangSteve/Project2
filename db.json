@@ -5,7 +5,7 @@
       "fullName": "Lebokgang",
       "password": "Lebza@1234",
       "confirmPassword": "Lebza@1234",
-      "status": "true",
+      "status": true,
       "role": "admin"
     },
     {
@@ -13,7 +13,7 @@
       "fullName": "Lebza",
       "password": "Lebza@1234",
       "confirmPassword": "Lebza@1234",
-      "status": "true",
+      "status": true,
       "role": "admin"
     },
     {
@@ -21,15 +21,15 @@
       "fullName": "bongumusa",
       "password": "Bongumusa@50",
       "confirmPassword": "Bongumusa@50",
-      "status": "false",
+      "status": false,
       "role": "user"
     },
     {
-      "id": "nomvela@gmail.com",
-      "fullName": "Steve Nomvela",
-      "password": "Nomvela@123",
-      "confirmPassword": "Nomvela@123",
-      "status": "true",
+      "id": "steve@gmail.com",
+      "fullName": "Steve Mokgalaka",
+      "password": "Steve@123",
+      "confirmPassword": "Steve@123",
+      "status": true,
       "role": "user"
     },
     {
@@ -37,7 +37,15 @@
       "fullName": "Ezron",
       "password": "EZROm@gmail1",
       "confirmPassword": "EZROm@gmail1",
-      "status": "true",
+      "status": false,
+      "role": "user"
+    },
+    {
+      "id": "nomvela@gmail.com",
+      "fullName": "Steve Nomvela",
+      "password": "Nomvela@123",
+      "confirmPassword": "Nomvela@123",
+      "status": false,
       "role": "user"
     }
   ],
@@ -52,13 +60,5 @@
       "name": "user"
     }
   ],
-  "deletedUsers": [
-    {
-      "id": "steve@gmail.com",
-      "fullName": "Steve Mokgalaka",
-      "password": "Steve@123",
-      "confirmPassword": "Steve@123",
-      "role": "user"
-    }
-  ]
+  "deletedUsers": []
 }

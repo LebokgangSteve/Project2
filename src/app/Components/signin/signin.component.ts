@@ -37,7 +37,7 @@ export class SigninComponent implements OnInit {
         (res) => {
           this.userdata = res;
           if (this.userdata.password === this.loginform.value.password) {
-            if (this.userdata.status === 'true') {
+            if (this.userdata.status === true) {
               const date = new Date().setMinutes(new Date().getSeconds() + 60);
               sessionStorage.setItem(
                 'expiredSession',

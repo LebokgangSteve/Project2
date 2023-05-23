@@ -13,6 +13,7 @@ import { UpdatepopupComponent } from '../updatepopup/updatepopup.component';
 import { HttpClient } from '@angular/common/http';
 import { DeletepopupComponent } from 'src/app/deletepopup/deletepopup.component';
 import { StatuspopupComponent } from 'src/app/statuspopup/statuspopup.component';
+import { UserList } from 'src/app/users.model';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ import { StatuspopupComponent } from 'src/app/statuspopup/statuspopup.component'
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  status: string = '';
   constructor(
     private builder: FormBuilder,
     private router: Router,
@@ -27,48 +29,81 @@ export class HomeComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.users();
+    this.goTotDeleted();
+    this.getStatuses();
   }
 
-  userlist: any;
-  dataSource: any;
-  user: any;
+  userlist: UserList[] = [];
+  dataSource: MatTableDataSource<UserList> = new MatTableDataSource();
+  user: UserList = new UserList();
   totalActive: number = 0;
   totalInActive: number = 0;
   totalUsers: number = 0;
   totalAdmin: number = 0;
   total: number = 0;
 
+  deletedlist: UserList[] = [];
+  deletedSource: any;
+  totDeleted: number = 0;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  goTotDeleted() {
+    this.service.GetAllDeleted().subscribe((res) => {
+      this.deletedlist = res;
+      this.totDeleted = res.length;
+      this.deletedSource = new MatTableDataSource(this.deletedlist);
+      this.deletedSource.paginator = this.paginator;
+      this.deletedSource.sort = this.sort;
+    });
+  }
+
   users() {
-    this.service.GetAll().subscribe((res: any) => {
+    this.service.GetAll().subscribe((res: UserList[]) => {
       //counting total
       this.total = res.length;
 
-      //counting total active users
-      this.totalActive = res.filter((el: any) => el.status === 'true').length;
+      // //counting total active users
+      // this.totalActive = res.filter((el: UserList) => el.status === true).length;
 
-      //counting total not active users
-      this.totalInActive = res.filter(
-        (el: any) => el.status === 'false'
-      ).length;
+      // //counting total not active users
+      // this.totalInActive = res.filter((el: UserList) => el.status === false).length;
 
       //counting total admin
-      this.totalAdmin = res.filter((el: any) => el.role === 'admin').length;
+      this.totalAdmin = res.filter(
+        (el: UserList) => el.role === 'admin'
+      ).length;
 
       //counting users
-      this.totalUsers = res.filter((el: any) => el.role === 'user').length;
+      this.totalUsers = res.filter((el: UserList) => el.role === 'user').length;
 
       // -------------------------------------------------------------------------------------
 
       this.userlist = res;
       this.checkRole();
-      this.checkStatus();
       this.dataSource = new MatTableDataSource(this.userlist);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
   }
+
+  getStatuses() {
+    this.service.GetAllStatuses().subscribe((res: UserList[]) => {
+      //counting total active users
+      console.log('status: ', res.filter((n:UserList) => n.status === true))
+      this.totalActive = res.filter(
+        (el: UserList) => el.status === true
+      ).length;
+      console.log('rrr', this.totalActive);
+
+      //counting total not active users
+      this.totalInActive = res.filter(
+        (el: UserList) => el.status === false
+      ).length;
+    });
+  }
+
   displayedColumns: string[] = ['name', 'email', 'status'];
 
   usersform = this.builder.group({
@@ -111,7 +146,7 @@ export class HomeComponent implements OnInit {
     }
   }
   checkRole() {
-    let arr: string[] = [];
+    let arr: UserList[] = [];
     for (let user of this.userlist) {
       if (user.role === 'user') {
         arr.push(user);
@@ -128,27 +163,19 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  checkStatus() {
-    let arr: string[] = [];
-    for (let user of this.userlist) {
-      if (user.status === 'true') {
-        user.status = 'Active';
-
-        arr.push(user);
-      } else {
-        user.status = 'Not-Active';
-
-        arr.push(user);
-      }
-    }
-    this.userlist = arr;
-  }
-
   getTotUser(role: string = '') {
     if (!role || role.length == 0) {
       this.router.navigate(['./user']);
     } else {
       this.router.navigate([`./user/${role}`]);
+    }
+  }
+
+  getToStatus(status: boolean = false) {
+    if (!status) {
+      this.router.navigate(['./user']);
+    } else {
+      this.router.navigate([`./user/${status}`]);
     }
   }
 

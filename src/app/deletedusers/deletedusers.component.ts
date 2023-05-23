@@ -12,6 +12,7 @@ import { MatSort } from '@angular/material/sort';
 import { HttpClient } from '@angular/common/http';
 import { DeletepopupComponent } from 'src/app/deletepopup/deletepopup.component';
 import { StatuspopupComponent } from 'src/app/statuspopup/statuspopup.component';
+import { UserList } from '../users.model';
 
 @Component({
   selector: 'app-deletedusers',
@@ -25,16 +26,21 @@ export class DeletedusersComponent {
     private service: AuthService,
     private dialog: MatDialog
   ) {}
+
+  ngOnInit() {
+    this.goTotDeleted();
+  }
   // ----------------------------------------------deleted users-----------------------
-  deletedlist: any;
+  deletedlist: UserList[] = [];
   deletedSource: any;
   totDeleted: number = 0;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  getTotDeleted() {
+  goTotDeleted() {
     this.service.GetAllDeleted().subscribe((res: any) => {
       this.deletedlist = res;
       this.totDeleted = res.length;
+      this.checkStatus();
       this.deletedSource = new MatTableDataSource(this.deletedlist);
       this.deletedSource.paginator = this.paginator;
       this.deletedSource.sort = this.sort;
@@ -66,6 +72,22 @@ export class DeletedusersComponent {
       ])
     ),
     role: this.builder.control('user'),
-    status: this.builder.control('false'),
+    status: this.builder.control(false),
   });
+  status: string = '';
+  checkStatus() {
+    let arr: UserList[] = [];
+    for (let user of this.deletedlist) {
+      if (user.status) {
+        this.status = 'Active';
+
+        arr.push(user);
+      } else {
+        this.status = 'Not-Active';
+
+        arr.push(user);
+      }
+    }
+    this.deletedlist = arr;
+  }
 }

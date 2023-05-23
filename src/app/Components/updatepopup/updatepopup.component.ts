@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
-import { UserData } from 'src/app/resetpassword/resetpassword.component';
+import { UserList } from 'src/app/users.model';
 
 @Component({
   selector: 'app-updatepopup',
@@ -41,7 +41,7 @@ export class UpdatepopupComponent implements OnInit {
 
   mapUser(
     userData:
-      | UserData
+      | UserList
       | undefined
       | Partial<{
           id: string | null;
@@ -76,7 +76,7 @@ export class UpdatepopupComponent implements OnInit {
     role: this.builder.control('', Validators.required),
   });
   updateuser() {
-    let userData: UserData = {
+    let userData: UserList = {
       id: this.registerform.value.id || '',
       fullName: this.registerform.value.fullName || '',
       password: this.registerform.value.password || '',

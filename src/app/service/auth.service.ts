@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserData } from '../resetpassword/resetpassword.component';
 import { Observable } from 'rxjs';
+import { UserList } from '../users.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,55 +15,59 @@ export class AuthService {
 
   GetAll(role: string = '') {
     if (role == '') {
-      return this.http.get(this.apiurl);
+      return this.http.get<UserList[]>(this.apiurl);
     } else {
-      return this.http.get(`${this.apiurl}?role=${role}`);
+      return this.http.get<UserList[]>(`${this.apiurl}?role=${role}`);
+    }
+  }
+
+  GetAllStatuses(status: boolean = false) {
+    if(status == false) {
+      return this.http.get<UserList[]>(this.apiurl);
+    } else {
+      return this.http.get<UserList[]>(`${this.apiurl}?status=${status}`);
     }
   }
 
   GetAllRole() {
-    return this.http.get('http://localhost:3000/role');
+    return this.http.get<UserList[]>('http://localhost:3000/role');
   }
   GetAllStatus() {
-    return this.http.get('http://localhost:3000/status');
+    return this.http.get<UserList[]>('http://localhost:3000/status');
   }
   GetAllDisabled() {
-    return this.http.get(this.apiurldisabled);
+    return this.http.get<UserList[]>(this.apiurldisabled);
   }
 
   GetAllDeleted() {
-    return this.http.get(this.apiurldeleted);
+    return this.http.get<UserList[]>(this.apiurldeleted);
   }
 
   GetByDeleted(code: any) {
-    return this.http.get(this.apiurldisabled + '/' + code);
+    return this.http.get<UserList[]>(this.apiurldisabled + '/' + code);
   }
 
-  GetByCode(code: string | undefined | null): Observable<UserData> {
-    return this.http.get<UserData>(this.apiurl + '/' + code);
+  GetByCode(code: string | undefined | null): Observable<UserList> {
+    return this.http.get<UserList>(this.apiurl + '/' + code);
   }
   ProceedRegistration(inputdata: any) {
-    return this.http.post(this.apiurl, inputdata);
+    return this.http.post<UserList>(this.apiurl, inputdata);
   }
 
-  UpdateUser(code: string | null | undefined, inputdata: UserData | undefined) {
-    return this.http.put<UserData>(this.apiurl + '/' + code, inputdata);
+  UpdateUser(code: string | null | undefined, inputdata: UserList | undefined) {
+    return this.http.put<UserList>(this.apiurl + '/' + code, inputdata);
   }
 
   isLoggedIn() {
     return sessionStorage.getItem('username') != null;
   }
 
-  delete(data: any) {
+  delete(data: string) {
     return this.http.delete(this.apiurl + '/' + data);
   }
 
-  deletedUsers(inputdata: any) {
-    return this.http.post(this.apiurldeleted, inputdata);
-  }
-
-  disableUsers(inputdata: any) {
-    return this.http.post(this.apiurldisabled, inputdata);
+  deletedUsers(inputdata: UserList) {
+    return this.http.post<UserList>(this.apiurldeleted, inputdata);
   }
 
   getUserRole() {
@@ -86,7 +90,7 @@ export class AuthService {
   //     return this.http.get(this.apiurl)
   //   }
 
-  updateStatus(code: any, status: any) {
+  updateStatus(code: string, status: UserList) {
     return this.http.put(this.apiurl + '/' + code, status);
   }
 }

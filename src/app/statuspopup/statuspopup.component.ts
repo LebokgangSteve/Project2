@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UserList } from '../users.model';
 
 @Component({
   selector: 'app-statuspopup',
@@ -40,6 +41,7 @@ export class StatuspopupComponent {
   }
 
   rolelist: any;
+  user: UserList = new UserList();
   statusform = this.builder.group({
     id: this.builder.control(''),
     fullName: this.builder.control(''),
@@ -50,17 +52,18 @@ export class StatuspopupComponent {
   });
 
   onUpdateStatus() {
+    this.user.id = this.statusform.value.id || '';
+    this.user.fullName = this.statusform.value.fullName || '';
+    this.user.password = this.statusform.value.password || '';
+    this.user.confirmPassword = this.statusform.value.confirmPassword || '';
+    this.user.status = false;
+    this.user.role = this.statusform.value.role || '';
     if (this.statusform.valid) {
       this.service
-        .updateStatus(this.statusform.value.id, this.statusform.value)
+        .updateStatus(this.statusform.value.id || '', this.user)
         .subscribe((res) => {
-          console.log('status-updated: ', res);
           alert('Updated successfully');
         });
-      // this.service.GetByCode(userId).subscribe((res: any) => {
-      //   console.log('rrr: ', res.status)
-      //   this.user = res;
-      // });
     } else {
       alert('Please select Status.');
     }

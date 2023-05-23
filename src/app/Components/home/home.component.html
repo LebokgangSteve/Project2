@@ -7,8 +7,6 @@
   <mat-card-content>
     <div class="mat-elevation-z8">
       <table mat-table matSort [dataSource]="dataSource">
-        <!-- Name Column -->
-
         <ng-container matColumnDef="name">
           <th mat-header-cell mat-sort-header *matHeaderCellDef>Name</th>
           <td mat-cell *matCellDef="let element">
@@ -16,7 +14,6 @@
           </td>
         </ng-container>
 
-        <!-- Weight Column -->
         <ng-container matColumnDef="email">
           <th mat-header-cell mat-sort-header *matHeaderCellDef>Email</th>
           <td mat-cell *matCellDef="let element">{{ element.id }}</td>
@@ -24,7 +21,7 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Status</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.status }}
+            {{ status }}
           </td>
         </ng-container>
 
@@ -69,7 +66,6 @@
         <div>
           {{ totalAdmin }}
         </div>
-        <!-- <a href="#" class="card-link">List of Admins</a> -->
       </div>
     </div>
 
@@ -83,13 +79,11 @@
         <div>
           {{ totalUsers }}
         </div>
-
-        <!-- <a href="#" class="card-link">List of Users</a> -->
       </div>
     </div>
 
     <div
-      (click)="getTotUser('user&status=true')"
+      (click)="getToStatus(true)"
       class="col-xl-4 col-lg-4 col-sm-12 col-md-6 card text-white bg-dark mb-3 me-3"
       style="width: 25rem"
     >
@@ -98,7 +92,6 @@
         <div>
           {{ totalActive }}
         </div>
-        <!-- <a href="./users" class="card-link">List of active users</a> -->
       </div>
     </div>
 
@@ -112,7 +105,6 @@
         <div>
           {{ totalInActive }}
         </div>
-        <!-- <a href="#" class="card-link">List of inactive users</a> -->
       </div>
     </div>
 
@@ -124,9 +116,8 @@
       <div class="card-body text-center">
         <h5 class="card-title">DELETED USERS</h5>
         <div>
-          {{ totalInActive }}
+          {{ totDeleted }}
         </div>
-        <!-- <a href="#" class="card-link">List of deleted users </a> -->
       </div>
     </div>
   </div>

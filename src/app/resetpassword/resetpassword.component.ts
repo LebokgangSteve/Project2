@@ -4,15 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
 import { UtilService } from '../service/util.service';
-
-export interface UserData {
-  id: string;
-  fullName: string;
-  password: string;
-  confirmPassword: string;
-  status: boolean;
-  role: string;
-}
+import { UserList } from '../users.model';
 
 @Component({
   selector: 'app-resetpassword',
@@ -27,7 +19,7 @@ export class ResetpasswordComponent {
     private utilService: UtilService,
     private router: Router
   ) {}
-  userdata: UserData | undefined;
+  userdata: UserList = new UserList();
   resetform = this.builder.group({
     email: this.builder.control(
       '',
@@ -69,7 +61,7 @@ export class ResetpasswordComponent {
           this.service
             .UpdateUser(this.userdata.id, this.userdata)
             .subscribe((res) => {});
-          console.log(this.userdata.password);
+          
           alert('Password resetted successfully');
 
           this.router.navigate(['./signin']);

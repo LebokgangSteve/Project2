@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UserList } from '../users.model';
 
 @Component({
   selector: 'app-deletepopup',
@@ -45,7 +46,8 @@ export class DeletepopupComponent {
     }
   }
 
-  rolelist: any;
+  rolelist: UserList[] = [];
+  user: UserList = new UserList();
   registerform = this.builder.group({
     id: this.builder.control(''),
     fullName: this.builder.control('', Validators.required),
@@ -55,16 +57,24 @@ export class DeletepopupComponent {
   });
 
   deleteUser() {
+    this.user.id = this.registerform.value.id || '';
+    this.user.fullName = this.registerform.value.fullName || '';
+    this.user.password = this.registerform.value.password || '';
+    this.user.confirmPassword = this.registerform.value.confirmPassword || '';
+    this.user.status = false;
+    this.user.role = this.registerform.value.role || '';
+
     if (this.registerform.valid) {
-      this.service.delete(this.registerform.value.id).subscribe((res) => {});
-      this.service.deletedUsers(this.registerform.value).subscribe((res) => {});
-     
+      this.service
+        .delete(this.registerform.value.id || '')
+        .subscribe((res) => {});
+      this.service.deletedUsers(this.user).subscribe((res) => {});
+
       alert('Deleted successfully');
       this.router.navigate(['user']);
       this.dialog.closeAll();
     } else {
       alert('User Already Deleted');
-      
     }
   }
 

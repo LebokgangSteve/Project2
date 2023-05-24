@@ -13,6 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { DeletepopupComponent } from 'src/app/deletepopup/deletepopup.component';
 import { StatuspopupComponent } from 'src/app/statuspopup/statuspopup.component';
 import { UserList } from 'src/app/users.model';
+import { CdkTableDataSourceInput } from '@angular/cdk/table';
 
 @Component({
   selector: 'app-user',
@@ -20,6 +21,7 @@ import { UserList } from 'src/app/users.model';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
+  dataSource: any;
   constructor(
     private http: HttpClient,
     private service: AuthService,
@@ -41,8 +43,7 @@ export class UserComponent implements OnInit {
       this.loadUser(value['role']);
     });
   }
-  userlist: UserList[] = []; 
-  dataSource: any; 
+  userlist: UserList[] = [];
   user: UserList[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -59,9 +60,7 @@ export class UserComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'email', 'role', 'status', 'action'];
 
-  updateuser(
-    code: string 
-  ) {
+  updateuser(code: string) {
     const popup = this.dialog.open(UpdatepopupComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '500ms',
@@ -106,9 +105,7 @@ export class UserComponent implements OnInit {
 
   opendialog() {}
 
-  deleteUser(
-    code: string 
-  ) {
+  deleteUser(code: string) {
     const deletepopup = this.dialog.open(DeletepopupComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '500ms',
@@ -123,9 +120,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  statusUser(
-    code: string 
-  ) {
+  statusUser(code: string) {
     const statuspopup = this.dialog.open(StatuspopupComponent, {
       enterAnimationDuration: '1000ms',
       exitAnimationDuration: '500ms',
@@ -141,7 +136,7 @@ export class UserComponent implements OnInit {
   }
   status: string = '';
   checkStatus() {
-    let arr: UserList[] = []; 
+    let arr: UserList[] = [];
     for (let user of this.userlist) {
       if (user.status) {
         this.status = 'Active';

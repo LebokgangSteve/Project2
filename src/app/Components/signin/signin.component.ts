@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
 import { AppComponent } from 'src/app/app.component';
-
+import { UserList } from 'src/app/users.model';
 
 @Component({
   selector: 'app-signin',
@@ -13,7 +13,7 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class SigninComponent implements OnInit {
   showPassword: boolean = false;
-  userdata: any;
+  userdata: UserList = new UserList();
   constructor(
     private builder: FormBuilder,
     private toastr: ToastrService,

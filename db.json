@@ -3,8 +3,8 @@
     {
       "id": "lebza@gmail.com",
       "fullName": "Lebza",
-      "password": "Lebza@1234",
-      "confirmPassword": "Lebza@1234",
+      "password": "Lebza@12345",
+      "confirmPassword": "Lebza@12345",
       "status": true,
       "role": "admin"
     },
@@ -31,30 +31,6 @@
       "confirmPassword": "Nomvela@123",
       "status": true,
       "role": "user"
-    },
-    {
-      "id": "lebokgang@digilink.africa",
-      "fullName": "Lebokgang",
-      "password": "Lebza@1234",
-      "confirmPassword": "Lebza@1234",
-      "status": true,
-      "role": "admin"
-    },
-    {
-      "id": "bongumusa@gmail.com",
-      "fullName": "bongumusa",
-      "password": "Bongumusa@50",
-      "confirmPassword": "Bongumusa@50",
-      "status": false,
-      "role": "user"
-    },
-    {
-      "id": "asto@gmail.com",
-      "fullName": "Astose",
-      "password": "Astose1234&",
-      "confirmPassword": "Astose1234&",
-      "status": true,
-      "role": "user"
     }
   ],
   "status": [],
@@ -68,5 +44,38 @@
       "name": "user"
     }
   ],
-  "deletedUsers": []
+  "deletedUsers": [
+    {
+      "id": "lebokgang@gmail.com",
+      "fullName": "Lebokgang",
+      "password": "Lebokgang@123",
+      "confirmPassword": "Lebokgang@123",
+      "status": false,
+      "role": "user"
+    },
+    {
+      "id": "lebokgang@digilink.africa",
+      "fullName": "Lebokgang",
+      "password": "Lebza@1234",
+      "confirmPassword": "Lebza@1234",
+      "status": false,
+      "role": "admin"
+    },
+    {
+      "id": "asto@gmail.com",
+      "fullName": "Astose",
+      "password": "Astose1234&",
+      "confirmPassword": "Astose1234&",
+      "status": false,
+      "role": "user"
+    },
+    {
+      "id": "bongumusa@gmail.com",
+      "fullName": "bongumusa",
+      "password": "Bongumusa@50",
+      "confirmPassword": "Bongumusa@50",
+      "status": false,
+      "role": "user"
+    }
+  ]
 }

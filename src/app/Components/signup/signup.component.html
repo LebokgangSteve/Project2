@@ -6,17 +6,13 @@
           <div class="card-body p-5 text-center">
             <h3 class="mb-5">Sign up</h3>
 
-            <form
-              class="form1Example3"
-              [formGroup]="registerform"
-              (ngSubmit)="proceedRegistration()"
-            >
+            <form class="form1Example3" [formGroup]="registerform">
               <!-- Name-->
               <label class="form-label" for="typeNameX-2">Name</label>
               <div class="form-outline mb-4">
                 <input
                   type="text"
-                  class="form-control form-control-lg border"
+                  class="form-control form-control border"
                   (input)="onFullName($any($event.target).value)"
                   input
                   formControlName="fullName"
@@ -28,7 +24,7 @@
               <div class="form-outline mb-4">
                 <input
                   type="email"
-                  class="form-control form-control-lg border"
+                  class="form-control form-control border"
                   (input)="onEmail($any($event.target).value)"
                   input
                   formControlName="id"
@@ -36,29 +32,47 @@
               </div>
 
               <!-- Password -->
-              <label class="form-label" for="typePasswordX-2">Password</label>
-              <div class="form-outline mb-4">
+              <mat-label class="form-label">Password</mat-label>
+              <div class="input-group mb-4">
                 <input
-                  type="password"
-                  class="form-control form-control-lg border"
+                  [type]="showPassword ? 'text' : 'password'"
+                  class="form-control form-control border"
                   (input)="onPassword($any($event.target).value)"
                   input
                   formControlName="password"
                 />
+                <button class="btn btn-outline-secondary">
+                  <mat-icon
+                    class="input-group"
+                    atSuffix
+                    (click)="visibility()"
+                    >{{
+                      showPassword ? "visibility" : "visibility_off"
+                    }}</mat-icon
+                  >
+                </button>
               </div>
 
               <!-- Confirm password -->
-              <label class="form-label" for="typePasswordX-2"
-                >Confirm Password</label
-              >
-              <div class="form-outline mb-4">
+              <mat-label class="form-label">Confirm Password</mat-label>
+              <div class="input-group mb-4">
                 <input
-                  type="password"
-                  class="form-control form-control-lg border"
+                  [type]="showPassword ? 'text' : 'password'"
+                  class="form-control form-control border"
                   (input)="onConfirmPassword($any($event.target).value)"
                   input
                   formControlName="confirmPassword"
                 />
+                <button class="btn btn-outline-secondary">
+                  <mat-icon
+                    class="input-group"
+                    atSuffix
+                    (click)="visibility()"
+                    >{{
+                      showPassword ? "visibility" : "visibility_off"
+                    }}</mat-icon
+                  >
+                </button>
               </div>
 
               <!-- Comparing passwords -->
@@ -71,6 +85,7 @@
               </div>
 
               <button
+                (click)="proceedRegistration()"
                 *ngIf="
                   fullName.length &&
                   email.length &&

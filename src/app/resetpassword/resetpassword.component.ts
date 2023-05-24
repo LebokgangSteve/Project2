@@ -49,7 +49,7 @@ export class ResetpasswordComponent {
   proceedReset() {
     if (this.resetform.valid) {
       const email = this.resetform.value.email || '';
-      this.service.GetByCode(email).subscribe((res) => {
+      this.service.GetByCode(email).subscribe((res: UserList) => {
         this.userdata = res;
         if (
           this.userdata.id === this.resetform.value.email &&

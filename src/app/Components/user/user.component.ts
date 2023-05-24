@@ -41,8 +41,8 @@ export class UserComponent implements OnInit {
       this.loadUser(value['role']);
     });
   }
-  userlist: UserList[] = []; //TODO remove any
-  dataSource: any; //TODO remove any
+  userlist: UserList[] = []; 
+  dataSource: any; 
   user: UserList[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'role', 'status', 'action'];
 
   updateuser(
-    code: string //TODO remove any
+    code: string 
   ) {
     const popup = this.dialog.open(UpdatepopupComponent, {
       enterAnimationDuration: '1000ms',
@@ -101,13 +101,13 @@ export class UserComponent implements OnInit {
       ])
     ),
     role: this.builder.control('user'),
-    status: this.builder.control(false),
+    status: this.builder.control(''),
   });
 
   opendialog() {}
 
   deleteUser(
-    code: string //TODO remove any
+    code: string 
   ) {
     const deletepopup = this.dialog.open(DeletepopupComponent, {
       enterAnimationDuration: '1000ms',
@@ -124,7 +124,7 @@ export class UserComponent implements OnInit {
   }
 
   statusUser(
-    code: string //TODO remove any
+    code: string 
   ) {
     const statuspopup = this.dialog.open(StatuspopupComponent, {
       enterAnimationDuration: '1000ms',
@@ -141,7 +141,7 @@ export class UserComponent implements OnInit {
   }
   status: string = '';
   checkStatus() {
-    let arr: any[] = []; //TODO remove any
+    let arr: UserList[] = []; 
     for (let user of this.userlist) {
       if (user.status) {
         this.status = 'Active';

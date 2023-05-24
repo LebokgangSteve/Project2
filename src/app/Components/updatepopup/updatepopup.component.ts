@@ -20,6 +20,8 @@ export class UpdatepopupComponent implements OnInit {
   ) {}
 
   editdata: any;
+  rolelist: any;
+
   ngOnInit(): void {
     this.service.GetAllRole().subscribe((res) => {
       this.rolelist = res;
@@ -66,7 +68,6 @@ export class UpdatepopupComponent implements OnInit {
     }
   }
 
-  rolelist: any;
   registerform = this.builder.group({
     id: this.builder.control(''),
     fullName: this.builder.control('', Validators.required),

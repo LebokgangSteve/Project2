@@ -21,7 +21,6 @@ import { UserList } from 'src/app/users.model';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  status: string = '';
   constructor(
     private builder: FormBuilder,
     private router: Router,
@@ -30,7 +29,6 @@ export class HomeComponent implements OnInit {
   ) {
     this.users();
     this.goTotDeleted();
-    this.getStatuses();
   }
 
   userlist: UserList[] = [];
@@ -41,6 +39,8 @@ export class HomeComponent implements OnInit {
   totalUsers: number = 0;
   totalAdmin: number = 0;
   total: number = 0;
+  totalInActiveAdmin: number = 0;
+  totalActiveAdmin: number = 0;
 
   deletedlist: UserList[] = [];
   deletedSource: any;
@@ -64,11 +64,15 @@ export class HomeComponent implements OnInit {
       //counting total
       this.total = res.length;
 
-      // //counting total active users
-      // this.totalActive = res.filter((el: UserList) => el.status === true).length;
+      //counting total active users
+      this.totalActive = res.filter(
+        (el: UserList) => el.status === true && el.role === 'user'
+      ).length;
 
-      // //counting total not active users
-      // this.totalInActive = res.filter((el: UserList) => el.status === false).length;
+      //counting total not active users
+      this.totalInActive = res.filter(
+        (el: UserList) => el.status === false && el.role === 'user'
+      ).length;
 
       //counting total admin
       this.totalAdmin = res.filter(
@@ -78,6 +82,16 @@ export class HomeComponent implements OnInit {
       //counting users
       this.totalUsers = res.filter((el: UserList) => el.role === 'user').length;
 
+      //total active admins
+      this.totalActiveAdmin = res.filter(
+        (el: UserList) => el.status === true && el.role === 'admin'
+      ).length;
+
+      //total Non active admin
+      this.totalInActiveAdmin = res.filter(
+        (el: UserList) => el.status === false && el.role === 'admin'
+      ).length;
+
       // -------------------------------------------------------------------------------------
 
       this.userlist = res;
@@ -85,22 +99,6 @@ export class HomeComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.userlist);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    });
-  }
-
-  getStatuses() {
-    this.service.GetAllStatuses().subscribe((res: UserList[]) => {
-      //counting total active users
-      console.log('status: ', res.filter((n:UserList) => n.status === true))
-      this.totalActive = res.filter(
-        (el: UserList) => el.status === true
-      ).length;
-      console.log('rrr', this.totalActive);
-
-      //counting total not active users
-      this.totalInActive = res.filter(
-        (el: UserList) => el.status === false
-      ).length;
     });
   }
 
@@ -131,7 +129,7 @@ export class HomeComponent implements OnInit {
       ])
     ),
     role: this.builder.control('user'),
-    status: this.builder.control('false'),
+    status: this.builder.control(false),
   });
 
   ngOnInit() {
@@ -168,14 +166,6 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['./user']);
     } else {
       this.router.navigate([`./user/${role}`]);
-    }
-  }
-
-  getToStatus(status: boolean = false) {
-    if (!status) {
-      this.router.navigate(['./user']);
-    } else {
-      this.router.navigate([`./user/${status}`]);
     }
   }
 

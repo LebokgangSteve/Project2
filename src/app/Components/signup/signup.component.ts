@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/service/auth.service';
+import { SigninComponent } from '../signin/signin.component';
 
 @Component({
   selector: 'app-signup',
@@ -14,6 +15,7 @@ export class SignupComponent {
   email = '';
   password = '';
   confirmPassword = '';
+  showPassword: boolean = false;
 
   constructor(
     private builder: FormBuilder,
@@ -69,6 +71,12 @@ export class SignupComponent {
       alert('Please enter valid data'); //need to fix this one
     }
   }
+
+  visibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+
 
   // checking input box
   onFullName(value: string) {

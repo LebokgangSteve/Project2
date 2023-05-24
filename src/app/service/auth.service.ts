@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   GetAllStatuses(status: boolean = false) {
-    if(status == false) {
+    if (!status) {
       return this.http.get<UserList[]>(this.apiurl);
     } else {
       return this.http.get<UserList[]>(`${this.apiurl}?status=${status}`);
